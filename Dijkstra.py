@@ -14,6 +14,7 @@ def dijkstra(s, n, g):
     used[s] = True
     # 仮の距離を記録するヒープ
     que = []
+    heapq.heapify(que)
     for e in g[s]:
         heapq.heappush(que, e)
     while que:
