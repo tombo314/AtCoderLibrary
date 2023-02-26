@@ -1,4 +1,3 @@
-# トポロジカルソート
 def topological_sort(g, n):
     """ 
     g : ソートするグラフ
