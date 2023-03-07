@@ -1,3 +1,6 @@
+import sys,pypyjit
+sys.setrecursionlimit(10**9)
+pypyjit.set_param("max_unroll_recursion=-1")
 def topological_sort(g, n):
     """ 
     g : ソートするグラフ
