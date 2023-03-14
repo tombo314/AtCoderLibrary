@@ -1,20 +1,10 @@
 # 0-indexed
 class SegTree:
-    """
-    init(init_val, ide_ele): 配列init_valで初期化 O(N)
-    update(k, x): k番目の値をxに更新 O(logN)
-    query(l, r): 区間[l, r)をsegfuncしたものを返す O(logN)
-    """
     def __init__(self, init_val, segfunc, ide_ele):
         """
         init_val: 配列の初期値
         segfunc: 区間にしたい操作
         ide_ele: 単位元
-        """
-        """
-        n: 要素数
-        num: n以上の最小の2のべき乗
-        tree: セグメント木(1-index)
         """
         n = len(init_val)
         self.segfunc = segfunc
