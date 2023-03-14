@@ -21,7 +21,7 @@ class SegTree:
     def update(self, k, x):
         """
         k番目の値をxに更新
-        k: index(0-index)
+        k: index(0-indexed)
         x: update value
         """
         k += self.num
@@ -33,8 +33,8 @@ class SegTree:
     def query(self, l, r):
         """
         [l, r)のsegfuncしたものを得る
-        l: index(0-index)
-        r: index(0-index)
+        l: index(0-indexed)
+        r: index(0-indexed)
         """
         res = self.ide_ele
         l += self.num
