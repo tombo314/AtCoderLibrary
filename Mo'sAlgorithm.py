@@ -9,7 +9,7 @@ class Mo:
     def _init_states(self):
         ########################################
         # その時点における状態
-        self.cnt_color = 0
+        self.ans = 0
         self.cnt = [0]*(N+1)
         ########################################
 
@@ -18,29 +18,31 @@ class Mo:
         self.r = 0
 
         # queryを格納する用
-        self.bucket = [list() for _ in range((self.b + 1))]
+        self.bucket = [[] for _ in range((self.b+1))]
 
     def _add(self, i):
         # i番目の要素を含めて考えるときへstatesを更新
+        # O(1)で区間を伸縮する
         if self.cnt[self.ls[i]]==0:
-            self.cnt_color += 1
+            self.ans += 1
         self.cnt[self.ls[i]] += 1
 
     def _delete(self, i):
         # i番目の要素を削除して考えるときへstatesを更新
+        # O(1)で区間を伸縮する
         if self.cnt[self.ls[i]]==1:
-            self.cnt_color -= 1
+            self.ans -= 1
         self.cnt[self.ls[i]] -= 1
 
     def _one_process(self, l, r):
         # クエリ[l,r)に対してstatesを更新する
         for i in range(self.r, r):  # rまで伸長
             self._add(i)
-        for i in range(self.r - 1, r - 1, -1):  # rまで短縮
+        for i in range(self.r-1, r-1, -1):  # rまで短縮
             self._delete(i)
         for i in range(self.l, l):  # lまで短縮
             self._delete(i)
-        for i in range(self.l - 1, l - 1, -1):  # lまで伸長
+        for i in range(self.l-1, l-1, -1):  # lまで伸長
             self._add(i)
 
         self.l = l
@@ -50,18 +52,18 @@ class Mo:
         self._init_states()
 
         for i, (l, r) in enumerate(queries):  # queryをbucketに格納
-            self.bucket[l // self.b].append((l, r, i))
+            self.bucket[l//self.b].append((l, r, i))
 
         for i in range(len(self.bucket)):
             self.bucket[i].sort(key=itemgetter(1))
 
-        ret = [-1] * len(queries)
+        ret = [-1]*len(queries)
         for b in self.bucket:
             for l, r, i in b:  # クエリに答えていく
                 self._one_process(l, r)
                 ########################################
                 # クエリに答える作業をここで書く
-                ret[i] = self.cnt_color
+                ret[i] = self.ans
                 ########################################
         return ret
 
